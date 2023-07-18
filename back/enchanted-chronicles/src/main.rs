@@ -2,13 +2,18 @@ use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt};
 use axum::{routing::get, Router};
 
 // Importing all the submodules
-mod controllers{ pub mod paragraphs_controller; }
+mod controllers{ 
+                pub mod paragraphs_controller; 
+                pub mod hello_controller; 
+            }
 mod services{ pub mod paragraphs_service; }
 mod repositories{ pub mod paragraphs_repository; }
 
 pub fn api_router_routes() -> Router {
     Router::new()
         .route("/api/paragraph/:id", get(controllers::paragraphs_controller::get_paragraph))
+        // Route mostly used for testing
+        .route("/hello", get(controllers::hello_controller::handler_hello))
 }
 
 #[tokio::main]

@@ -1,5 +1,3 @@
-use axum::response::IntoResponse;
-
 use crate::repositories::paragraphs_repository::dynamodb_paragraphs;
 
 pub async fn paragraph_service(id: u64) -> String {
