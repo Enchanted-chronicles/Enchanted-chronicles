@@ -1,8 +1,8 @@
-use axum::{Json, extract::Path};
+use axum::{Json, extract::Path, response::IntoResponse};
 
 use crate::services::paragraphs_service::paragraph_service;
 
-pub async fn get_paragraph(Path(id): Path<u64>) -> impl axum::response::IntoResponse {
+pub async fn get_paragraph(Path(id): Path<u64>) -> impl IntoResponse {
     let paragraph = paragraph_service(id).await;
 
     let json_response = serde_json::json!({
