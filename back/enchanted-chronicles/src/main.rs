@@ -11,7 +11,7 @@ mod repositories{ pub mod paragraphs_repository; }
 
 pub fn api_router_routes() -> Router {
     Router::new()
-        .route("/api/paragraph/:id", get(controllers::paragraphs_controller::get_paragraph))
+        .route("/api/paragraph", get(controllers::paragraphs_controller::get_paragraph))
         // Route mostly used for testing
         .route("/hello", get(controllers::hello_controller::handler_hello))
 }

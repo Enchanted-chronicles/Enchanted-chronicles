@@ -1,13 +1,19 @@
-use axum::{Json, extract::Path, response::IntoResponse};
+use axum::{Json, extract::Query, response::IntoResponse};
 
 use crate::services::paragraphs_service::paragraph_service;
+use serde::Deserialize;
 
-pub async fn get_paragraph(Path(id): Path<u64>) -> impl IntoResponse {
-    let paragraph = paragraph_service(id).await;
+#[derive(Debug, Deserialize)]
+pub struct ParagraphParams {
+    id: Option<u64>,
+}
+
+pub async fn get_paragraph(Query(params): Query<ParagraphParams>) -> impl IntoResponse {
+    let paragraph = paragraph_service(params.id.unwrap()).await;
 
     let json_response = serde_json::json!({
         "status": "ok",
-        "message": paragraph
+        "message": paragraph 
     });
     Json(json_response)
 }
